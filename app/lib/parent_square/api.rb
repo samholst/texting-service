@@ -6,20 +6,6 @@ module ParentSquare
 
     base_uri "https://mock-text-provider.parentsquare.com"
 
-    PROVIDER_ONE = { path: "/provider1", weight: 7 }.freeze
-    PROVIDER_TWO = { path: "/provider2", weight: 3 }.freeze
-
-    PROVIDERS = [PROVIDER_ONE, PROVIDER_TWO].freeze
-    PROVIDERS_WEIGHT_SUM = PROVIDERS.sum { |p| p[:weight] }.freeze
-
-    PROVIDERS_WEIGHTED = [].tap do |arr|
-      PROVIDERS.each do |provider|
-        provider[:weight].times do 
-          arr << provider[:path]
-        end
-      end
-    end.shuffle.freeze
-
     def self.send_text(text_message)
       provider = LoadBalancer.get_provider
       uri_options = options(text_message)
