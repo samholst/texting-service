@@ -5,3 +5,9 @@
 #
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
+
+u = User.create!(name: "Test APIer")
+puts "Created 1 User: #{u.name}"
+
+u.access_keys.create!
+puts "Created 1 access key for User: #{u.name}"
