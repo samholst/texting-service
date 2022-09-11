@@ -21,7 +21,7 @@ module ParentSquare
     end.shuffle.freeze
 
     def self.send_text(text_message)
-      provider = PROVIDERS_WEIGHTED[rand(PROVIDERS_WEIGHT_SUM)]
+      provider = LoadBalancer.get_provider
       uri_options = options(text_message)
 
       res = post(
@@ -30,10 +30,10 @@ module ParentSquare
       )
 
       unless res.success?
-        fallback_provider = PROVIDERS.reject { |p| p[:path] == provider }.first[:path]
+        backup_provider = LoadBalancer.backup_provider(provider)
 
         res = post(
-          fallback_provider,
+          backup_provider,
           uri_options
         )
       end
