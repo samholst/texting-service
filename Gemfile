@@ -44,3 +44,5 @@ gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 gem "grape", "~> 1.6"
 
 gem "grape_on_rails_routes", "~> 0.3.2"
+
+gem "httparty", "~> 0.20.0"

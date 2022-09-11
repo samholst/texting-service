@@ -17,13 +17,25 @@ module V1
     resource :texter do
       desc 'Send a message to a phone number.'
       params do
-        requires :phone_number, type: Integer, desc: 'Recipient phone number.'
-        requires :body, type: String, desc: 'Text message body.'
+        requires :to_number, type: Integer, desc: 'Recipient phone number.'
+        requires :message, type: String, desc: 'Text message body.'
       end
       post :send_message do
         authenticate!
 
-        present "Yippie!"
+        text_message = TextMessage.create(
+          to_number: params[:to_number],
+          message: params[:message]
+        )
+
+        res = ParentSquare::API.send_text(text_message)
+
+        if res.success?
+          text_message.update(message_id: JSON.parse(res.body)["message_id"])
+          present res
+        else
+          error!("Please try again. Message could not be sent.")
+        end
       end
     end
   end

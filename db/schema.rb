@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_09_11_034134) do
+ActiveRecord::Schema.define(version: 2022_09_11_044421) do
 
   create_table "access_keys", force: :cascade do |t|
     t.integer "user_id", null: false
@@ -28,6 +28,16 @@ ActiveRecord::Schema.define(version: 2022_09_11_034134) do
     t.datetime "updated_at", precision: 6, null: false
     t.index ["token"], name: "index_api_keys_on_token"
     t.index ["user_id"], name: "index_api_keys_on_user_id"
+  end
+
+  create_table "text_messages", force: :cascade do |t|
+    t.string "to_number"
+    t.text "message"
+    t.string "message_id"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["message_id"], name: "index_text_messages_on_message_id"
+    t.index ["to_number"], name: "index_text_messages_on_to_number"
   end
 
   create_table "users", force: :cascade do |t|
