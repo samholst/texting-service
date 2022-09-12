@@ -1,10 +1,12 @@
 class TextMessage < ApplicationRecord
   validates_presence_of :to_number, :message
 
-  before_create :is_invalid_number?, :set_default_status
+  before_create :set_default_status
+
+  validate :is_invalid_number?
 
   def is_invalid_number?
-    raise "The number you provided is invalid." if InvalidNumber.where(number: self.to_number).exists?
+    self.errors.add(:to_number, "The number you provided is invalid.") if InvalidNumber.where(number: self.to_number).exists?
   end
 
   def set_default_status

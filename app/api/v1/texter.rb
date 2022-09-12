@@ -23,10 +23,14 @@ module V1
       post :send_message do
         authenticate!
 
-        text_message = TextMessage.create!(
+        text_message = TextMessage.create(
           to_number: params[:to_number],
           message: params[:message]
         )
+
+        unless text_message.valid?
+          error! errors: text_message.errors.messages
+        end
 
         res = ParentSquare::API.send_text(text_message)
 
