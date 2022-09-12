@@ -4,15 +4,20 @@ module ParentSquare
   class API
     include HTTParty
 
-    CALLBACK_URL = ""
-
     base_uri "https://mock-text-provider.parentsquare.com"
 
-    def self.send_text(text_message)
-      provider = LoadBalancer.get_provider
-      uri_options = options(text_message)
+    attr_reader :text_message, :callback_url
 
-      res = post(
+    def initialize(text_message, callback_url)
+      @text_message = text_message
+      @callback_url = callback_url
+    end
+
+    def send_text
+      provider = LoadBalancer.get_provider
+      uri_options = options
+
+      res = self.class.post(
         provider,
         uri_options
       )
@@ -20,7 +25,7 @@ module ParentSquare
       unless res.success?
         backup_provider = LoadBalancer.backup_provider(provider)
 
-        res = post(
+        res = self.class.post(
           backup_provider,
           uri_options
         )
@@ -29,12 +34,12 @@ module ParentSquare
       res
     end
 
-    def self.options(text_message)
+    def options
       {
         body: {
           to_number: text_message.to_number,
           message: text_message.message,
-          callback_url: "https://example.com/delivery_status"
+          callback_url: callback_url
         }.to_json
       }
     end

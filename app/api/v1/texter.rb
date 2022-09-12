@@ -32,7 +32,8 @@ module V1
           error! errors: text_message.errors.messages
         end
 
-        res = ParentSquare::API.send_text(text_message)
+        callback_url = "#{request.env["rack.url_scheme"]}://#{request.env["HTTP_HOST"]}/api/v1/texter/delivery_status"
+        res = ParentSquare::API.new(text_message, callback_url).send_text
 
         if res.success?
           text_message.update(message_id: JSON.parse(res.body)["message_id"])
