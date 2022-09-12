@@ -29,7 +29,7 @@ module V1
         )
 
         unless text_message.valid?
-          error!(errors: text_message.errors.messages)
+          error!({ errors: text_message.errors.messages }, 400)
         end
 
         callback_url = "#{request.env["rack.url_scheme"]}://#{request.env["HTTP_HOST"]}/api/v1/texter/delivery_status"
@@ -37,9 +37,9 @@ module V1
 
         if res.success?
           text_message.update(message_id: JSON.parse(res.body)["message_id"])
-          present(res)
+          present(res, 201)
         else
-          error!("Please try again. Message could not be sent.")
+          error!("Please try again. Message could not be sent.", 400)
         end
       end
 
@@ -56,14 +56,14 @@ module V1
         if text_message
           text_message.update!(status: params[:status])
         else
-          error!("The message_id is invalid.")
+          error!("The message_id is invalid.", 400)
         end
 
         if params[:status] == InvalidNumber::STATUS && !InvalidNumber.where(number: text_message.to_number).exists?
           InvalidNumber.create(number: text_message.to_number) 
         end
 
-        present(successful: true)
+        present({ successful: true }, 200)
       end
     end
   end
