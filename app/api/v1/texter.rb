@@ -44,10 +44,16 @@ module V1
         requires :message_id, type: String, desc: 'Message ID.'
       end
       post :delivery_status do
+        # Can't authenicate request credentials here in callback due to ParentSquare test API limitation
+
         text_message = TextMessage.find_by_message_id(params[:message_id])
         text_message.update!(status: params[:status])
 
-        InvalidNumber.create!(number: text_message.to_number) if params[:status] == InvalidNumber::INVALID
+        if params[:status] == InvalidNumber::STATUS && !InvalidNumber.where(number: text_message.to_number).exists?
+          InvalidNumber.create(number: text_message.to_number) 
+        end
+
+        present status: :success
       end
     end
   end
