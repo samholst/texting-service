@@ -6,7 +6,7 @@ module V1
 
     helpers do
       def current_user
-        @current_user ||= AccessKey.find_by_token(request.headers["X-Api-Key"])
+        @current_user ||= AccessKey.find_by_token(request.headers["X-Api-Key"])&.user
       end
 
       def authenticate!
@@ -23,7 +23,7 @@ module V1
       post :send_message do
         authenticate!
 
-        text_message = current_user.user.text_messages.create(
+        text_message = current_user.text_messages.create(
           to_number: params[:to_number],
           message: params[:message]
         )
