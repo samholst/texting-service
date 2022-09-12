@@ -15,6 +15,8 @@ rails s
 
 Enter `rails c` and grab `User.first.access_keys.first.token`.
 
+Or use this static API key `0241779ada9b54f47227` after running `rails db:seed` on local or on production.
+
 Use any tool of your choice to send API request. Make sure the
 request has a `x-api-key` header of the `User.first.access_keys.first.token`.
 

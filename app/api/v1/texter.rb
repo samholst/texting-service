@@ -58,7 +58,7 @@ module V1
           InvalidNumber.create(number: text_message.to_number) 
         end
 
-        present(status: :success)
+        present(successful: true)
       end
     end
   end

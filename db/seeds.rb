@@ -10,4 +10,6 @@ u = User.create!(name: "Test APIer")
 puts "Created 1 User: #{u.name}"
 
 u.access_keys.create!
+u.access_keys.last.update(token: "0241779ada9b54f47w27")
+
 puts "Created 1 access key for User: #{u.name}"

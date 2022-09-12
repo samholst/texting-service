@@ -3,7 +3,7 @@ class TextMessage < ApplicationRecord
 
   before_create :set_default_status
 
-  validate :is_invalid_number?
+  validate :is_invalid_number?, on: :create
 
   def is_invalid_number?
     self.errors.add(:to_number, "The number you provided is invalid.") if InvalidNumber.where(number: self.to_number).exists?
