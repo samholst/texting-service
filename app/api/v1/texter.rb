@@ -23,7 +23,7 @@ module V1
       post :send_message do
         authenticate!
 
-        text_message = TextMessage.create(
+        text_message = TextMessage.create!(
           to_number: params[:to_number],
           message: params[:message]
         )
@@ -36,6 +36,18 @@ module V1
         else
           error!("Please try again. Message could not be sent.")
         end
+      end
+
+      desc 'Receives callback for delivery status of sent text message.'
+      params do
+        requires :status, type: String, values: %w(delivered failed invalid), desc: 'Status of sent text message.'
+        requires :message_id, type: String, desc: 'Message ID.'
+      end
+      post :delivery_status do
+        text_message = TextMessage.find_by_message_id(params[:message_id])
+        text_message.update!(status: params[:status])
+
+        InvalidNumber.create!(number: text_message.to_number) if params[:status] == InvalidNumber::INVALID
       end
     end
   end

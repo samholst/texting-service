@@ -4,6 +4,8 @@ module ParentSquare
   class API
     include HTTParty
 
+    CALLBACK_URL = ""
+
     base_uri "https://mock-text-provider.parentsquare.com"
 
     def self.send_text(text_message)
