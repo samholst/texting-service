@@ -32,11 +32,13 @@ ActiveRecord::Schema.define(version: 2022_09_12_181834) do
     t.string "to_number", null: false
     t.text "message", null: false
     t.string "message_id"
+    t.bigint "user_id", null: false
     t.string "status"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["message_id"], name: "index_text_messages_on_message_id"
     t.index ["to_number"], name: "index_text_messages_on_to_number"
+    t.index ["user_id"], name: "index_text_messages_on_user_id"
   end
 
   create_table "users", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
@@ -46,4 +48,5 @@ ActiveRecord::Schema.define(version: 2022_09_12_181834) do
   end
 
   add_foreign_key "access_keys", "users"
+  add_foreign_key "text_messages", "users"
 end

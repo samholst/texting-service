@@ -23,7 +23,7 @@ module V1
       post :send_message do
         authenticate!
 
-        text_message = TextMessage.create(
+        text_message = current_user.user.text_messages.create(
           to_number: params[:to_number],
           message: params[:message]
         )
@@ -52,7 +52,12 @@ module V1
         # Can't authenicate request credentials here in callback due to ParentSquare test API limitation
 
         text_message = TextMessage.find_by_message_id(params[:message_id])
-        text_message.update!(status: params[:status])
+
+        if text_message
+          text_message.update!(status: params[:status])
+        else
+          error!("The message_id is invalid.")
+        end
 
         if params[:status] == InvalidNumber::STATUS && !InvalidNumber.where(number: text_message.to_number).exists?
           InvalidNumber.create(number: text_message.to_number) 
