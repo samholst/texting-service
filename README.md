@@ -1,24 +1,30 @@
 # README
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+## Setup
 
-Things you may want to cover:
+Run:
 
-* Ruby version
+```ruby
+bundle install
+rails db:create
+rails db:migrate
+rails db:seed
 
-* System dependencies
+rails s
+```
 
-* Configuration
+Enter `rails c` and grab `User.first.access_keys.first.token`.
 
-* Database creation
+Use any tool of your choice to send API request. Make sure the
+request has a `x-api-key` header of the `User.first.access_keys.first.token`.
 
-* Database initialization
 
-* How to run the test suite
+### Send message endpiont
 
-* Services (job queues, cache servers, search engines, etc.)
+localhost:3000/api/v1/texter/send_message?message=Hi Y'all!&to_number=1234567890
 
-* Deployment instructions
+### Callback endpoint
 
-* ...
+localhost:3000/api/v1/texter/delivery_status?status=delivered&message_id=a1sdasdf-asdf1123123-asdfa-12312
+
+
