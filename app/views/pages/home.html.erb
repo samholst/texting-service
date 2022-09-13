@@ -1,1 +1,36 @@
-<p> Hi </p>
+<h1> Welcome to Texting Service LLC! </h1>
+<br>
+
+<h2> Text Message History:</h2>
+<br>
+
+<form action="/">
+  <input type="text" id="number" name="number" value="" placeholder="Search by number here (Format: 1234567890)">
+  <input type="submit" value="Search">
+</form>
+
+<br>
+
+<%- if @text_messages.blank? %>
+  <p> No text messages sent so far. </p>
+<%- else %>
+  <table>
+    <tr>
+      <th>User</th>
+      <th>To</th>
+      <th>Message</th>
+      <th>Sent</th>
+      <th>Status</th>
+    </tr>
+
+    <%- @text_messages.each do |message| %>
+      <tr>
+      <td><%= message.user.name %></td>
+      <td><%= message.to_number %></td>
+      <td><%= message.message %></td>
+      <td><%= message.created_at %></td>
+      <td><%= message.status %></td>
+    </tr>
+    <%- end %>
+  </table>
+<%- end %>

@@ -21,6 +21,11 @@ Use any tool of your choice to send API request. Make sure the
 request has a `x-api-key` header of the `User.first.access_keys.first.token`.
 
 
+## Test Message page
+
+Visit `/` of the hosted domain to view messages.
+
+
 ## Local Testing
 
 ### Send message endpiont

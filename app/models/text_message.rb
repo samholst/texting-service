@@ -1,4 +1,6 @@
 class TextMessage < ApplicationRecord
+  belongs_to :user
+
   validates_presence_of :to_number, :message
 
   before_create :set_default_status
