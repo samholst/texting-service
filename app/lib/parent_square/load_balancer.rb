@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 module ParentSquare
-  class LoadBalancer
+  module LoadBalancer
     PROVIDER_ONE = { path: "/provider1", weight: 7 }.freeze
     PROVIDER_TWO = { path: "/provider2", weight: 3 }.freeze
 
