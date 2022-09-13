@@ -23,7 +23,7 @@ request has a `x-api-key` header of the `User.first.access_keys.first.token`.
 
 ## Test Message page
 
-Visit `/` of the hosted domain to view messages.
+Visit `/` of the hosted domain to view messages. The page does not auto update, please refresh the page to see updates.
 
 
 ## Local Testing
