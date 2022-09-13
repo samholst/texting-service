@@ -42,3 +42,19 @@ POST:
 localhost:3000/api/v1/texter/delivery_status?status=delivered&message_id=a1sdasdf-asdf1123123-asdfa-12312
 ```
 
+
+### Non Local
+
+POST: 
+```
+https://samholst.com/texting_service/api/v1/texter/send_message?message=Hi Y'all!&to_number=1234567890
+```
+
+### Callback endpoint
+
+POST:
+```
+https://samholst.com/texting_service/api/v1/texter/delivery_status?status=delivered&message_id=a1sdasdf-asdf1123123-asdfa-12312
+```
+
+
