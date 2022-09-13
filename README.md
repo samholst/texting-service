@@ -28,6 +28,11 @@ Visit `/` of the hosted domain to view messages. The page does not auto update, 
 
 ## Local Testing
 
+GET:
+```
+localhost:3000/
+```
+
 ### Send message endpiont
 
 POST: 
@@ -44,6 +49,13 @@ localhost:3000/api/v1/texter/delivery_status?status=delivered&message_id=a1sdasd
 
 
 ## WWW Testing
+
+GET:
+```
+https://samholst.com/texting_service
+```
+
+### Send message endpiont
 
 POST: 
 ```
