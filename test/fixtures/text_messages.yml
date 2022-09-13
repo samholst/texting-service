@@ -4,8 +4,12 @@ one:
   to_number: MyString
   message: MyText
   message_id: MyString
+  user: one
+  status: MyString
 
 two:
   to_number: MyString
   message: MyText
   message_id: MyString
+  user: one
+  status: MyString

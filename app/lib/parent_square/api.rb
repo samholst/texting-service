@@ -6,15 +6,15 @@ module ParentSquare
 
     base_uri "https://mock-text-provider.parentsquare.com"
 
-    attr_reader :text_message, :callback_url
+    attr_reader :text_message, :callback_url, :provider
 
     def initialize(text_message, callback_url)
       @text_message = text_message
       @callback_url = callback_url
+      @provider = LoadBalancer.get_provider
     end
 
     def send_text
-      provider = LoadBalancer.get_provider
       uri_options = options
 
       res = self.class.post(
@@ -23,16 +23,18 @@ module ParentSquare
       )
 
       unless res.success?
-        backup_provider = LoadBalancer.backup_provider(provider)
+        @provider = LoadBalancer.backup_provider(provider)
 
         res = self.class.post(
-          backup_provider,
+          provider,
           uri_options
         )
       end
 
       res
     end
+
+    private
 
     def options
       {

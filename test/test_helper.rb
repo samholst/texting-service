@@ -1,6 +1,12 @@
 ENV['RAILS_ENV'] ||= 'test'
 require_relative '../config/environment'
 require 'rails/test_help'
+require "minitest/rails"
+require "minitest/pride"
+require "minitest/reporters"
+require 'minitest/spec'
+require 'minitest/autorun'
+require 'mocha/minitest'
 
 class ActiveSupport::TestCase
   # Run tests in parallel with specified workers

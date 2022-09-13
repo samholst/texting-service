@@ -2,11 +2,13 @@ class AccessKey < ApplicationRecord
   belongs_to :user
   before_create :generate_token
 
+  validates_uniqueness_of :token
+
   def generate_token
     10.times do |_|
       token = SecureRandom.hex(10)
 
-      unless AccessKey.find_by_token(token)
+      unless AccessKey.find_by_token(token).exists?
         self.token = token
         break
       end
