@@ -1,5 +1,15 @@
 # README
 
+If `config/master.key` file is need, create the file with value `dfa16bb2caccf02b8d5348e53d5b8235`.
+
+## Tests
+
+Run:
+
+```
+be rails test
+```
+
 ## Setup
 
 Run:
