@@ -58,7 +58,7 @@ localhost:3000/api/v1/texter/delivery_status?status=delivered&message_id=a1sdasd
 ```
 
 
-## WWW Testing
+## WWW Testing (not enabled until requested, please email when needed live)
 
 GET:
 ```
