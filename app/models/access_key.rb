@@ -8,7 +8,7 @@ class AccessKey < ApplicationRecord
     10.times do |_|
       token = SecureRandom.hex(10)
 
-      unless AccessKey.find_by_token(token).exists?
+      unless AccessKey.find_by_token(token)
         self.token = token
         break
       end
