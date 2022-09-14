@@ -60,7 +60,7 @@ localhost:3000/api/v1/texter/delivery_status?status=delivered&message_id=a1sdasd
 
 ## WWW Testing
 
-Not enabled until requested, please email time when needed live.
+Currently not live until requested, please email time when needing to be turned on.
 
 GET:
 ```
