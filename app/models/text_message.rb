@@ -1,7 +1,7 @@
 class TextMessage < ApplicationRecord
   belongs_to :user
 
-  validates_presence_of :to_number, :message
+  validates_presence_of :to_number, :message, :user_id
 
   before_create :set_default_status
 
